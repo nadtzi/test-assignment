@@ -1,8 +1,11 @@
 package menu;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import user.*;
 
 
@@ -36,7 +39,7 @@ public class UserMenu {
 			switch (choice) {
 			case 1: //add user
 				System.out.print("Enter the first name: ");
-
+				cin.nextLine();	
 				String fname = cin.nextLine();
 				System.out.println();
 
@@ -61,7 +64,7 @@ public class UserMenu {
 				System.out.println();
 
 				users.add(new ParentUser(fname, lname, street, city, state, zip));
-				System.out.println("user added successfully");
+				System.out.println("user added successfully, ID is " + users.get(users.size()-1).getUID());
 				System.out.println();
 				break;
 
@@ -92,14 +95,14 @@ public class UserMenu {
 				break;
 
 			case 3: //find user
-
+				
 				System.out.print("Enter the ID of the user: ");
 				id = cin.nextLong();
 
 				for(int i=0; i<users.size();i++) {
 					if(users.get(i).getUID()==id)
 					{
-						users.get(i).toString();
+						System.out.println(users.get(i).toString());
 						break;
 					}
 				}
@@ -147,6 +150,7 @@ public class UserMenu {
 							int choice1 = cin.nextInt();
 							switch (choice1) {
 							case 1: System.out.println("1: Please Enter new First Name\n");
+							cin.nextLine();	
 							String name = cin.nextLine();
 							users.get(i).setFirstName(name);
 							System.out.println("The updated first name is "+ users.get(i).getFirstName());
@@ -188,6 +192,7 @@ public class UserMenu {
 							int choice1 = cin.nextInt();
 							switch (choice1) {
 							case 1: System.out.println("1: Please Enter new First Name\n");
+							cin.nextLine();	
 							String name = cin.nextLine();
 							users.get(i).setFirstName(name);
 							System.out.println("The updated first name is "+ users.get(i).getFirstName());
@@ -208,12 +213,13 @@ public class UserMenu {
 				break;
 			case 6: //display all users
 				for(int i=0; i<users.size();i++) {
+					//System.out.println("works");
 					if(users.get(i) instanceof ParentUser) {
-						((ParentUser)(users.get(i))).toString();
+						System.out.println(((ParentUser)(users.get(i))).toString());
 					}
-					else ((ChildUser)(users.get(i))).toString();
+					else System.out.println(((ChildUser)(users.get(i))).toString());
 				}
-				
+
 
 				break;
 			default:
@@ -222,4 +228,23 @@ public class UserMenu {
 		} 
 
 	}
+	
+	static void save() {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("yourFile.bin"));
+			oos.writeObject(users);
+			oos.close();
+		} catch (Exception e) {
+		}
+	}
+
+	public static void load() {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("yourFile.bin"));
+			users = (ArrayList<User>) ois.readObject();
+			ois.close();
+		} catch (Exception e) {
+		}
+	}
 }
+
