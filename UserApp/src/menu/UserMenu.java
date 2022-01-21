@@ -16,7 +16,7 @@ public class UserMenu {
 	public UserMenu() {
 
 
-		//load();
+
 
 
 		Scanner cin = new Scanner(System.in);
@@ -30,7 +30,6 @@ public class UserMenu {
 			System.out.println("4: Remove User with their ID\n");
 			System.out.println("5: Update User data with their ID\n");
 			System.out.println("6: Display all Users\n");
-			System.out.print("7: Display child users under a parent");
 			System.out.println("=========================================\n");
 			System.out.print("Enter your choice: ");
 			int choice = cin.nextInt();
@@ -147,19 +146,36 @@ public class UserMenu {
 							System.out.print("Enter your choice: ");
 							int choice1 = cin.nextInt();
 							switch (choice1) {
-							case 1: 
+							case 1: System.out.println("1: Please Enter new First Name\n");
+							String name = cin.nextLine();
+							users.get(i).setFirstName(name);
+							System.out.println("The updated first name is "+ users.get(i).getFirstName());
 
-							case 2: 
+							case 2: System.out.println("1: Please Enter new Last Name\n");
+							name = cin.nextLine();
+							users.get(i).setLastName(name);
+							System.out.println("The updated last name is "+ users.get(i).getLastName());
 
-							case 3: 
+							case 3: System.out.println("1: Please Enter new Street\n");
+							String tstreet = cin.nextLine();
+							((ParentUser)(users.get(i))).setStreet(tstreet);
+							System.out.println("The updated street name is "+ ((ParentUser)(users.get(i))).getStreet());
 
-							case 4: 
+							case 4: System.out.println("1: Please Enter new City\n");
+							String tempCity = cin.nextLine();
+							((ParentUser)(users.get(i))).setCity(tempCity);
+							System.out.println("The updated city name is "+ ((ParentUser)(users.get(i))).getCity());
 
-							case 5: 
+							case 5: System.out.println("1: Please Enter new state\n");
+							String tempState = cin.nextLine();
+							((ParentUser)(users.get(i))).setState(tempState);
+							System.out.println("The updated state name is "+ ((ParentUser)(users.get(i))).getState());
 
-							case 6: 
-
-							default:
+							case 6: System.out.println("1: Please Enter new ZIP\n");
+							int tempZip = cin.nextInt();
+							((ParentUser)(users.get(i))).setZip(tempZip);;
+							System.out.println("The updated ZIP is "+ ((ParentUser)(users.get(i))).getZip());
+							default: System.out.println("Error: Invalid choice \n");
 							}
 						}
 						else {
@@ -167,18 +183,22 @@ public class UserMenu {
 							System.out.println("=========================================");
 							System.out.println("1: First Name\n");
 							System.out.println("2: Last Name\n");
-							System.out.println("3: Parent ID\n");
 							System.out.println("=========================================\n");
 							System.out.print("Enter your choice: ");
 							int choice1 = cin.nextInt();
 							switch (choice1) {
-							case 1: 
+							case 1: System.out.println("1: Please Enter new First Name\n");
+							String name = cin.nextLine();
+							users.get(i).setFirstName(name);
+							System.out.println("The updated first name is "+ users.get(i).getFirstName());
 
-							case 2: 
+							case 2: System.out.println("1: Please Enter new Last Name\n");
+							name = cin.nextLine();
+							users.get(i).setLastName(name);
+							System.out.println("The updated last name is "+ users.get(i).getLastName());
 
-							case 3: 
 
-							default:
+							default: System.out.println("Error: Invalid choice \n");
 							}
 						}
 						break;
@@ -186,7 +206,14 @@ public class UserMenu {
 				}
 
 				break;
-			case 6:
+			case 6: //display all users
+				for(int i=0; i<users.size();i++) {
+					if(users.get(i) instanceof ParentUser) {
+						((ParentUser)(users.get(i))).toString();
+					}
+					else ((ChildUser)(users.get(i))).toString();
+				}
+				
 
 				break;
 			default:
